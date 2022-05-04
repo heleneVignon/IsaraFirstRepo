@@ -1,0 +1,40 @@
+---
+title: "Test"
+author: "Hélène Vignon"
+date: "03/05/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# R Markdown
+## Test 
+### Test A 
+### Test A.a
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+- blabla
+ - blabla1
+    - blabla2
+- blabla
+
+
+When you click the **Knit** button a *document* will be generated that includes both ***content*** as well as the output of any _embedded_ R <u>code</u> chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE,eval=TRUE}
+plot(pressure)
+a <- 1.4763728928
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot. La valeur de a est `r round(a,2)`. La moyenne de presure est `r round(mean(pressure$pressure),2)`
