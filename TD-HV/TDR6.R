@@ -161,7 +161,7 @@ t3var[c(1,10,20), ]
 
 #Sélectionner les femmes de plus de 170 cm. Combien sont-elles ?
 femme170 <- t3var[t3var$sexe=="f"& t3var$tai > 170 , ]
-femme170
+nrow(femme170)
 
 #Pour les individus 10 à 20, donner toutes les variables sauf la première.
 t3var[10:20,-1]
@@ -170,6 +170,7 @@ t3var[10:20,-1]
 moyennetaillefemme <- mean(t3var$tai[t3var$sexe=="f"],)
 taillesup <- t3var[t3var$tai[t3var$sexe=="f"]>moyennetaillefemme,]
 taillesup
+nrow(taillesup)
 
 #Donner lamoyenne des poids pour tous, puis par sexe.
 mean(poi)
@@ -189,5 +190,49 @@ t3var$IMC <- IMC
 t3var
 
 #Utiliser dlpyer
+#library(dplyr)
+# Importer les données dans un objet t3var
+t3var <- read.table("t3var.txt",header=TRUE,sep="\t")
 
+#Identifier les noms des variables de ce jeu de données.
+tibble(t3var)
 
+# Définir le contexte statistique (combien d’individus, de variables, types des variables)
+glimpse(t3var)
+
+#Sélectionner les individus 1, 10 et 20.
+t3var %>%
+  slice(1,10,20)
+
+#Sélectionner les femmes de plus de 170 cm. Combien sont-elles ?
+t3var %>%
+  filter(sexe=="f" & tai>170)
+
+#Pour les individus 10 à 20, donner toutes les variables sauf la première.
+t3var %>%
+  slice(10:20,preserve=F) %>%
+  select(2,3)
+
+#Sélectionner les femmes de taille supérieure à la taille moyenne des femmes, donner l’effectif de ce sous-groupe.
+t3var %>%
+ filter(sexe=="f" & tai<mean(tai))
+  
+#Donner la moyenne des poids pour tous, puis par sexe.
+t3var %>%
+ summarise(poidsm=mean(poi))
+t3var %>%
+  group_by(sexe) %>%
+  summarise(poidsm=mean(poi))
+
+#Donner la variance des poids pour tous, puis par sexe (la variance estimée ou de l’échantillon).
+t3var %>%
+  summarise(poidsv=var(poi))
+t3var %>%
+  group_by(sexe) %>%
+  summarise(poidsv=var(poi))
+
+#Écrire une fonction qui calcule l’indice de masse corporelle (IMC=masse/taille2 taille en m).
+#Appliquer cette fonction à l’ensemble du jeu de donnée pour créer une nouvelle variable.
+t3var %>%
+  mutate(IMC=poi/(tai^2)*100)
+         
