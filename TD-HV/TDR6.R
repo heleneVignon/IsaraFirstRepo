@@ -209,7 +209,7 @@ t3var %>%
 t3var %>%
   filter(sexe=="f" & tai>170) %>%
   count()
-
+filter()
 #Pour les individus 10 à 20, donner toutes les variables sauf la première.
 t3var %>%
   slice(10:20,preserve=F) %>%
@@ -249,4 +249,5 @@ filter(starwars, sex=="male" & eye_color=="blue")
 starwars %>%
   group_by(height) %>%
   filter(hair_color=="blond")
+select(starwars,sex)
   

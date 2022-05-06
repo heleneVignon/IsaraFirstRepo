@@ -1,0 +1,31 @@
+---
+title: "STARWARS"
+author: "Hélène Vignon"
+date: "06/05/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(dplyr)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Les données Starwars
+
+Les données **Starwars** sont des données inclus dans les exemples de *Rstudio*.
+
+```{r starwars,echo=T, eval=T,collapse=F}
+dim(starwars)
+```
+
+### L'égalité homme/femme au sein de Starwars 
+
+On retrouve 5 groupe de sex dans les données, principalement des hommes et des femmes. En nombre il y a plus d'hommes que de femmes. 
+```{r starwars1,echo=T, eval=T,collapse=F}
+starwars1 <- starwars
+starwars%>%
+  group_by(sex) %>%
+  count()
+```
+
+
