@@ -6,7 +6,9 @@
 ######## EXERCICE OPTIONNEL : utilisez le package rstudioapi pour afficher le poly dans le Viewer
 
 
-######## EXERCICE  : importez DesIris.txt, testez les scripts et commentez
+######## EXERCICE  : importez DesIris.txt, testez les scripts et commentez 
+
+### TEST DE COMMANDE ####
 
 # Import
 iris1 <- read.table("DesIris.txt", header=TRUE, dec=".", sep=" ")  
@@ -42,24 +44,25 @@ tapply(iris1$SepalLength, iris1$Species, mean) # moyenne pour la colonne SepalLe
 
 # cr?er slv
 slv <- iris1$SepalLength[iris1$Species=="virginica"]
-
+slv
 # testez et commentez
-mean(slv)
-var(slv)
-sqrt(var(slv))
-sd(slv)
-min(slv)
-max(slv)
-range(slv)
-sort(slv)
-rev(slv)
-sum(slv)
-cumsum(slv)
-median(slv)
-quantile(slv,0.25)
-quantile(slv)
-length(slv)
+mean(slv) # moyenne
+var(slv) # variance estimee 
+sqrt(var(slv)) # ecart-type
+sd(slv) # ecart type
+min(slv) # plus petit valeur
+max(slv) # plus grande valeur
+range(slv)# interval total des donnees
+sort(slv) # classement plus petit à la plus grande 
+rev(slv)#
+sum(slv) # calcul de la somme 
+cumsum(slv)# somme cumulee 
+median(slv)# la mediane
+quantile(slv,0.25)# calcul le quartile
+quantile(slv)# calcul les quartiles
+length(slv)# 
 
+## EXERCICE IRIS ####
 
 ######## EXERCICE  : cr?ation de variables
 
@@ -69,6 +72,7 @@ noms <- paste("iris", 1:n) # paste() : coller
 head(noms)
 
 # le rapport de forme
+# iris1$rapport pour mettre dans le tableau iris1 soit data.frame
 rapport <- iris1$PetalLength/iris1$PetalWidth  
 head(rapport)
 
@@ -91,7 +95,7 @@ iris1$num
 
 
 
-######## EXERCICE  : t3var
+###### EXERCICE  : t3var consignes ####
 
 t3var <- read.table("t3var.txt",header=TRUE,sep="\t")
 t3var$sexe<-factor(t3var$sexe)
@@ -143,13 +147,13 @@ par(mfrow=c(1, 2),mar=c(5, 4, 2, 2)) # avec c(bas, gauche, haut, droite)
 plot(tai, poi)
 plot(tai)
 
-#Exercice  t3var
+#Exercice  t3var avec R ####
 
 # Importer les données dans un objet t3var.
 t3var <- read.table("t3var.txt",header=TRUE,sep="\t")
 
 #Identifier les noms des variables de ce jeu de données.
-names(t3var)
+names(t3var) 
 
 # Définir le contexte statistique (combien d’individus, de variables, types des variables)
 dim(t3var) #nb de lignes et nb de colonnes 
@@ -187,52 +191,62 @@ tapply(poi, sexe, var)
 Fonctionimc <- function(masse,taille) masse/(taille^2)
 IMC  <- Fonctionimc(masse=poi, taille=tai/100) 
 t3var$IMC <- IMC
-t3var
+head(IMC)
 
-#Utiliser dlpyer
-#library(dplyr)
+## EXERCICE T3VAR Utiliser dlpyer ####
+#package 
+library(dplyr)
 # Importer les données dans un objet t3var
 t3var <- read.table("t3var.txt",header=TRUE,sep="\t")
-
 #Identifier les noms des variables de ce jeu de données.
 tibble(t3var)
-
 # Définir le contexte statistique (combien d’individus, de variables, types des variables)
 glimpse(t3var)
-
 #Sélectionner les individus 1, 10 et 20.
 t3var %>%
   slice(1,10,20)
-
 #Sélectionner les femmes de plus de 170 cm. Combien sont-elles ?
 t3var %>%
-  filter(sexe=="f" & tai>170)
+  filter(sexe=="f" & tai>170) %>%
+  count()
 
 #Pour les individus 10 à 20, donner toutes les variables sauf la première.
 t3var %>%
   slice(10:20,preserve=F) %>%
-  select(2,3)
+  select(2,3) #pour selectionner des colonnes 
 
 #Sélectionner les femmes de taille supérieure à la taille moyenne des femmes, donner l’effectif de ce sous-groupe.
 t3var %>%
- filter(sexe=="f" & tai<mean(tai))
+ filter(sexe=="f" & tai<mean(tai)) %>%
+  count()
   
 #Donner la moyenne des poids pour tous, puis par sexe.
 t3var %>%
  summarise(poidsm=mean(poi))
 t3var %>%
-  group_by(sexe) %>%
+  group_by(sexe) %>% # pour selectionner pour ce groupe une fonction
   summarise(poidsm=mean(poi))
-
 #Donner la variance des poids pour tous, puis par sexe (la variance estimée ou de l’échantillon).
 t3var %>%
   summarise(poidsv=var(poi))
+# ou avec summurise_all
 t3var %>%
   group_by(sexe) %>%
   summarise(poidsv=var(poi))
-
 #Écrire une fonction qui calcule l’indice de masse corporelle (IMC=masse/taille2 taille en m).
 #Appliquer cette fonction à l’ensemble du jeu de donnée pour créer une nouvelle variable.
+#rajouter une colonne avec la focntion proposee
 t3var %>%
-  mutate(IMC=poi/(tai^2)*100)
-         
+  mutate(IMC=poi/(tai^2)*10000) %>%
+  arrange(IMC)
+
+## exercie starwars ####
+dim(starwars)
+tibble(starwars)
+filter(starwars, species=="Human")
+filter(starwars, mass>1000)
+filter(starwars, sex=="male" & eye_color=="blue")
+starwars %>%
+  group_by(height) %>%
+  filter(hair_color=="blond")
+  
