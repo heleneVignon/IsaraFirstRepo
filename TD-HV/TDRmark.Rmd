@@ -2,7 +2,9 @@
 title: "STARWARS"
 author: "Hélène Vignon"
 date: "06/05/2022"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -14,18 +16,54 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Les données **Starwars** sont des données inclus dans les exemples de *Rstudio*.
 
-```{r starwars,echo=T, eval=T,collapse=F}
+```{r,echo=T, eval=T,collapse=F}
 dim(starwars)
+tibble(starwars)
 ```
 
-### L'égalité homme/femme au sein de Starwars 
+### La répartition homme/femme au sein de Starwars 
 
 On retrouve 5 groupe de sex dans les données, principalement des hommes et des femmes. En nombre il y a plus d'hommes que de femmes. 
-```{r starwars1,echo=T, eval=T,collapse=F}
-starwars1 <- starwars
+
+```{r,echo=T, eval=T,collapse=F}
 starwars%>%
   group_by(sex) %>%
   count()
 ```
 
+### Focus sur la taille
 
+#### La taille et la poids
+
+On peut voir sur la graphique la répartition du poids des individus Starwars en fontion de leurs tailles. 
+
+```{r,echo=T, eval=T,collapse=F, fig.align='center', fig.cap="La taille et le poids"}
+plot(starwars$height, starwars$mass)
+abline(0,(lm(starwars$height~starwars$mass+0)$coefficients),col="blue") # régression linéaire passant par 0 
+lm(starwars$mass~starwars$height+0)$coefficients #le coefficient directeur
+```
+
+#### La taille et la genre
+
+On peut voir sur la graphique la répartition du poids des individus Starwars en fontion de leurs genres. Le graphique se présente sur des boîtes à moutsache et les coordonnées de la taille extrême par genre. 
+
+```{r, echo=T, eval=T,collapse=F, fig.align='center', fig.cap="La taille et le genre"}
+library(ggplot2)
+ggplot(data = starwars, mapping = aes(x = gender, y = height)) + 
+  geom_boxplot()
+
+```
+
+
+
+```{r , echo=T, fig.cap="Image Starwars",out.width = '40%', fig.align='center'}
+knitr::include_graphics("/Users/helenevignon/Desktop/OPEN2022/OPEN22-HV/TD-HV/STARWARS.png")
+```
+
+
+```{r, echo=T, fig.cap="Image Starwars", out.width = '50%', fig.align='center'}
+knitr::include_graphics("/Users/helenevignon/Desktop/OPEN2022/OPEN22-HV/TD-HV/starwars1.jpg")
+```
+
+
+Pour en savoir plus sur **Starwars** :  https://fr.wikipedia.org/wiki/Star_Wars

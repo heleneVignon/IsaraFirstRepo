@@ -241,13 +241,19 @@ t3var %>%
   arrange(IMC)
 
 ## exercie starwars ####
+library(dplyr)
 dim(starwars)
 tibble(starwars)
-filter(starwars, species=="Human")
+filter(starwars, gender=="female")
 filter(starwars, mass>1000)
 filter(starwars, sex=="male" & eye_color=="blue")
+
 starwars %>%
   group_by(height) %>%
   filter(hair_color=="blond")
-select(starwars,sex)
-  
+select(starwars,starships)
+
+install.packages("ggplot2")
+yes
+getwd()
+
