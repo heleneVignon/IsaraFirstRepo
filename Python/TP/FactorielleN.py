@@ -1,13 +1,13 @@
 try :
     Fact = 1
-    N = blabla
+    N = -9
     N = int(N)
     if N<= -1 :
         print("Impossible d'afficher une valeur négative")
         N = input()
     Resultat = ""
     #i = 1
-    for i in range(1,6):
+    for i in range(1,8):
         Fact = Fact * i
     Resultat = str(Fact)
     print("La factorielle de " + str(N) + " est " + Resultat)
@@ -16,3 +16,4 @@ try :
 except :
     print("Impossible de rentrer du texte")
     N = input()
+
