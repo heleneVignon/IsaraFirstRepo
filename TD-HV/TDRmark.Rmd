@@ -48,22 +48,24 @@ lm(starwars$mass~starwars$height+0)$coefficients #le coefficient directeur
 On peut voir sur la graphique la répartition du poids des individus Starwars en fontion de leurs genres. Le graphique se présente sur des boîtes à moutsache et les coordonnées de la taille extrême par genre. 
 
 ```{r, echo=T, eval=T,collapse=F, fig.align='center', fig.cap="La taille et le genre"}
+#install.packages(ggplot2)
 library(ggplot2)
 ggplot(data = starwars, mapping = aes(x = gender, y = height)) + 
   geom_boxplot()
-
 ```
 
 
-
-```{r , echo=T, fig.cap="Image Starwars",out.width = '40%', fig.align='center'}
+```{r , echo=T, fig.cap="Image Starwars 1",out.width = '40%', fig.align='center'}
 knitr::include_graphics("/Users/helenevignon/Desktop/OPEN2022/OPEN22-HV/TD-HV/STARWARS.png")
 ```
 
 
-```{r, echo=T, fig.cap="Image Starwars", out.width = '50%', fig.align='center'}
+```{r, echo=T, fig.cap="Image Starwars 2", out.width = '50%', fig.align='center'}
 knitr::include_graphics("/Users/helenevignon/Desktop/OPEN2022/OPEN22-HV/TD-HV/starwars1.jpg")
 ```
 
 
 Pour en savoir plus sur **Starwars** :  https://fr.wikipedia.org/wiki/Star_Wars
+
+
+
